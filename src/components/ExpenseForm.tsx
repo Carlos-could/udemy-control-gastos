@@ -1,7 +1,21 @@
-import React from 'react'
+import { useState } from 'react'
 import { categories } from '../data/categories'
+import type { DrafExpense } from '../types'
+import DatePicker from 'react-date-picker'
+import 'react-calendar/dist/Calendar.css'
+import 'react-date-picker/dist/DatePicker.css'
+
+
 
 export default function ExpenseForm() {
+
+  const [expense, SetExpense] = useState<DrafExpense>({
+    amount:0,
+    expenseName: '',
+    category: '',
+    date: new Date()
+  })
+
   return (
     <form className='space-y-5'>
       <legend
@@ -17,16 +31,18 @@ export default function ExpenseForm() {
             placeholder='Aniade el nombre del gasto'
             className='bg-slate-100 p-2'
             name='expenseName'
+            value={expense.expenseName}
          />
       </div>
       <div className='flex flex-col gap-2'>
-         <label htmlFor="amount"> Nombre de gasto:</label>
+         <label htmlFor="amount"> Cantidad:</label>
          <input 
             type="number" 
             id='amount'
             placeholder='Aniade la cantidad del gasto'
             className='bg-slate-100 p-2'
             name='amount'
+            value={expense.amount}
          />
       </div>
       <div className='flex flex-col gap-2'>
@@ -35,6 +51,7 @@ export default function ExpenseForm() {
             id='category'
             className='bg-slate-100 p-2'
             name='category'
+            value={expense.category}
          >
             <option value="">--Seleccione--</option>
             {categories.map ( category => (
@@ -44,6 +61,13 @@ export default function ExpenseForm() {
                >{category.name}</option>
             ))}
          </select>
+      </div>
+      <div className='flex flex-col gap-2'>
+         <label htmlFor="amount"> Fecha gastos:</label>
+        <DatePicker
+          className="bg-slate-100 p-2 border-0"
+          value={expense.date}
+        />
       </div>
       <input 
          type="submit"
