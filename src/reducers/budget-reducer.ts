@@ -12,6 +12,8 @@ export type BudgetState = {
   expenses : Expense[]
 }
 
+// carlos
+
 export const initialState : BudgetState = {
   budget:0,
   modal:false,
